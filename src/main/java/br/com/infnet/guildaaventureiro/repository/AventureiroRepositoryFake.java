@@ -17,6 +17,11 @@ public class AventureiroRepositoryFake {
         inicializar();
     }
 
+    public List<Aventureiro> findAll() {
+        return List.copyOf(banco);
+    }
+
+
     public Aventureiro save(Aventureiro aventureiro) {
         banco.add(aventureiro);
         return aventureiro;
