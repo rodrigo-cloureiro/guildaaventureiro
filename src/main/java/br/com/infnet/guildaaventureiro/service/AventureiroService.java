@@ -19,13 +19,6 @@ public class AventureiroService {
 
     /*
         AINDA FALTA:
-           - Verificar se os valores dos headers de paginação estão sendo retornados corretamente
-
-           - Verificar:
-            - Caso a página solicitada não exista:
-                - retornar lista vazia
-                - manter headers corretos
-
            - Passar os filtros para o Repository:
             - public List<Aventureiro> buscarComFiltro(AventureiroFiltroRequest filtro)
             - aventureiroRepository.buscarComFiltro()
@@ -77,7 +70,7 @@ public class AventureiroService {
     ) {
         int total = lista.size();
 
-        int fromIndex = page * size;
+        int fromIndex = calcularInicioDaLista(page, size, total);
         int toIndex = calcularFinalDaLista(fromIndex, size, total);
 
         return new PagedResponse<>(
@@ -86,6 +79,10 @@ public class AventureiroService {
                 total,
                 lista.subList(fromIndex, toIndex)
         );
+    }
+
+    private int calcularInicioDaLista(int page, int size, int total) {
+        return Math.min(page * size, total);
     }
 
     private int calcularFinalDaLista(int fromIndex, int sizeNumber, int total) {
