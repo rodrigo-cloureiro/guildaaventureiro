@@ -29,10 +29,6 @@ public class AventureiroService {
                 - retornar lista vazia
                 - manter headers corretos
 
-           - Consertar:
-            - Todas as listagens devem ser retornadas em ordem crescente de id
-                - ATUALMENTE o id é UUID => trocar para Long
-
            - Passar os filtros para o Repository:
             - public List<Aventureiro> buscarComFiltro(AventureiroFiltroRequest filtro)
             - aventureiroRepository.buscarComFiltro()

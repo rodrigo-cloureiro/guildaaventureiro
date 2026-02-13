@@ -6,14 +6,14 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-
-import java.util.UUID;
 
 @Getter
 @ToString
 public class Aventureiro {
-    private UUID id;
+    @Setter
+    private Long id;
     @NotBlank(message = "O nome não pode ser vazio")
     private String nome;
     @NotNull(message = "A classe é obrigatória")
@@ -26,7 +26,7 @@ public class Aventureiro {
     private Companheiro companheiro;
 
     public Aventureiro(String nome, Classe classe, int nivel) {
-        this.id = UUID.randomUUID();
+        this.id = 1L;
         this.nome = nome;
         this.classe = classe;
         this.nivel = nivel;

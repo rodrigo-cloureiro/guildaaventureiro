@@ -3,10 +3,8 @@ package br.com.infnet.guildaaventureiro.dto;
 import br.com.infnet.guildaaventureiro.enums.Classe;
 import br.com.infnet.guildaaventureiro.model.Aventureiro;
 
-import java.util.UUID;
-
 public record AventureiroResponse(
-        UUID id,
+        Long id,
         String nome,
         Classe classe,
         int nivel,
