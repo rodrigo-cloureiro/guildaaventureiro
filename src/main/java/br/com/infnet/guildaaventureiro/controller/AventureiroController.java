@@ -1,9 +1,6 @@
 package br.com.infnet.guildaaventureiro.controller;
 
-import br.com.infnet.guildaaventureiro.dto.AventureiroCreate;
-import br.com.infnet.guildaaventureiro.dto.AventureiroFiltroRequest;
-import br.com.infnet.guildaaventureiro.dto.AventureiroResponse;
-import br.com.infnet.guildaaventureiro.dto.PagedResponse;
+import br.com.infnet.guildaaventureiro.dto.*;
 import br.com.infnet.guildaaventureiro.mapper.AventureiroMapper;
 import br.com.infnet.guildaaventureiro.model.Aventureiro;
 import br.com.infnet.guildaaventureiro.service.AventureiroService;
@@ -64,12 +61,30 @@ public class AventureiroController {
         return ResponseEntity.ok(aventureiroMapper.toResponse(aventureiro));
     }
 
+    // =====================
+    // Atualizar Aventureiro
+    // =====================
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<AventureiroResponse> atualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody AventureiroUpdate update
+    ) {
+        Aventureiro atualizado = aventureiroService.atualizar(id, update);
+        return ResponseEntity.ok(aventureiroMapper.toResponse(atualizado));
+    }
+
+    // =====================
+    // Encerrar vinculo com Aventureiro
+    // =====================
     @PatchMapping(value = "/{id}/encerrar-vinculo")
     public ResponseEntity<Void> encerrarVinculo(@PathVariable Long id) {
         aventureiroService.encerrarVinculo(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
+    // =====================
+    // Recrutar Aventureiro novamente
+    // =====================
     @PatchMapping(value = "/{id}/recrutar")
     public ResponseEntity<Void> recrutarNovamente(@PathVariable Long id) {
         aventureiroService.recrutarNovamente(id);
