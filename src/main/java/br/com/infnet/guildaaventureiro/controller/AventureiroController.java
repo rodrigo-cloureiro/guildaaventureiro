@@ -3,6 +3,7 @@ package br.com.infnet.guildaaventureiro.controller;
 import br.com.infnet.guildaaventureiro.dto.*;
 import br.com.infnet.guildaaventureiro.mapper.AventureiroMapper;
 import br.com.infnet.guildaaventureiro.model.Aventureiro;
+import br.com.infnet.guildaaventureiro.model.Companheiro;
 import br.com.infnet.guildaaventureiro.service.AventureiroService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -21,9 +22,9 @@ public class AventureiroController {
     private final AventureiroMapper aventureiroMapper;
     private final AventureiroService aventureiroService;
 
-    // =====================
+    // ===================
     // Listar Aventureiros
-    // =====================
+    // ===================
     @GetMapping(value = "")
     public ResponseEntity<PagedResponse<AventureiroResponse>> listarAventureiros(
             @Valid AventureiroFiltroRequest filtro,
@@ -52,9 +53,9 @@ public class AventureiroController {
                 .body(pagedResponse);
     }
 
-    // =====================
+    // =========================
     // Buscar Aventureiro por ID
-    // =====================
+    // =========================
     @GetMapping(value = "/{id}")
     public ResponseEntity<AventureiroResponse> buscarPorId(@PathVariable Long id) {
         Aventureiro aventureiro = aventureiroService.buscarPorId(id);
@@ -73,18 +74,18 @@ public class AventureiroController {
         return ResponseEntity.ok(aventureiroMapper.toResponse(atualizado));
     }
 
-    // =====================
+    // ================================
     // Encerrar vinculo com Aventureiro
-    // =====================
+    // ================================
     @PatchMapping(value = "/{id}/encerrar-vinculo")
     public ResponseEntity<Void> encerrarVinculo(@PathVariable Long id) {
         aventureiroService.encerrarVinculo(id);
         return ResponseEntity.ok().build();
     }
 
-    // =====================
+    // ==============================
     // Recrutar Aventureiro novamente
-    // =====================
+    // ==============================
     @PatchMapping(value = "/{id}/recrutar")
     public ResponseEntity<Void> recrutarNovamente(@PathVariable Long id) {
         aventureiroService.recrutarNovamente(id);
@@ -100,5 +101,17 @@ public class AventureiroController {
         Aventureiro salvo = aventureiroService.criar(aventureiro);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(aventureiroMapper.toResponse(salvo));
+    }
+
+    // ==================================
+    // Definir Companheiro do Aventureiro
+    // ==================================
+    @PostMapping(value = "/{id}/companheiro")
+    public ResponseEntity<Void> definirCompanheiro(
+            @PathVariable Long id,
+            @Valid @RequestBody Companheiro companheiro
+    ) {
+        Aventureiro aventureiro = aventureiroService.definirCompanheiro(id, companheiro);
+        return ResponseEntity.noContent().build();
     }
 }
