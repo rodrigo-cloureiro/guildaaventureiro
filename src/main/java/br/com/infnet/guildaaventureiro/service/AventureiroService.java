@@ -5,6 +5,7 @@ import br.com.infnet.guildaaventureiro.dto.AventureiroUpdate;
 import br.com.infnet.guildaaventureiro.dto.PagedResponse;
 import br.com.infnet.guildaaventureiro.exception.EntidadeNaoLocalizadaException;
 import br.com.infnet.guildaaventureiro.model.Aventureiro;
+import br.com.infnet.guildaaventureiro.model.Companheiro;
 import br.com.infnet.guildaaventureiro.repository.AventureiroRepositoryFake;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -58,6 +59,12 @@ public class AventureiroService {
     public void recrutarNovamente(Long id) {
         Aventureiro aventureiro = buscarPorId(id);
         aventureiro.recrutar();
+    }
+
+    public Aventureiro definirCompanheiro(Long id, Companheiro companheiro) {
+        Aventureiro aventureiro = buscarPorId(id);
+        aventureiro.definirCompanheiro(companheiro);
+        return aventureiroRepository.save(aventureiro);
     }
 
     public Aventureiro criar(Aventureiro aventureiro) {
