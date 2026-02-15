@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @Repository
+// TODO Adicionar interface para utilizar injeção de dependência
 public class AventureiroRepositoryFake {
     private Long sequence = 0L;
     private final List<Aventureiro> banco = new ArrayList<>();
@@ -68,8 +69,10 @@ public class AventureiroRepositoryFake {
     }
 
     public Aventureiro save(Aventureiro aventureiro) {
-        aventureiro.setId(++sequence);
-        banco.add(aventureiro);
+        if (aventureiro.getId() == null) {
+            aventureiro.setId(++sequence);
+            banco.add(aventureiro);
+        }
         return aventureiro;
     }
 
